@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@types/cheerio": "^0.22.15",
+    "@types/node-fetch": "^2.5.4",
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "scrape_makes": "ts-node scrape_makes.ts",
+    "scrape_models": "ts-node scrape_models.ts",
+    "start": "ts-node scrape_makes.ts && ts-node scrape_models.ts"
+  }
+}

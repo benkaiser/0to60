@@ -37,6 +37,7 @@ const makes: Make[] = JSON.parse(fs.readFileSync('makes.json', 'utf8'));
   console.log('Done');
   console.log(`Wrote ${makesWithModels.length} makes with ${countModels(makesWithModels)} models to file makes_models.json`);
   fs.writeFileSync('makes_models.json', JSON.stringify(makesWithModels, null, 2), 'utf8');
+  fs.writeFileSync('../times.min.js', 'var times = ' + JSON.stringify(makesWithModels) + ';', 'utf8');
 })();
 
 function countModels(makesWithModesl: MakeWithModels[]): number {

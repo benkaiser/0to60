@@ -14,7 +14,10 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <h1>0 to 60 Browser</h1>
+        <h1>
+          <svg className='icon' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M12 16a3 3 0 0 1-3-3c0-1.12.61-2.1 1.5-2.61l9.71-5.62l-5.53 9.58c-.5.98-1.51 1.65-2.68 1.65m0-13c1.81 0 3.5.5 4.97 1.32l-2.1 1.21C14 5.19 13 5 12 5a8 8 0 0 0-8 8c0 2.21.89 4.21 2.34 5.65h.01c.39.39.39 1.02 0 1.41c-.39.39-1.03.39-1.42.01A9.969 9.969 0 0 1 2 13A10 10 0 0 1 12 3m10 10c0 2.76-1.12 5.26-2.93 7.07c-.39.38-1.02.38-1.41-.01a.996.996 0 0 1 0-1.41A7.95 7.95 0 0 0 20 13c0-1-.19-2-.54-2.9L20.67 8C21.5 9.5 22 11.18 22 13z" fill="white"/></svg>
+          0 to 60 Browser
+        </h1>
         <p>Find a cars 0-60 faster than it can get there.</p>
         <input placeholder='Search' className="form-control mb-2" type='text' ref={this._inputRef} onKeyUp={this._onKeyUp} />
         { this._navigationButtons() }
@@ -157,25 +160,17 @@ class App extends React.Component {
     }
 
     let search = matchString.toLowerCase();
-    const searchPermutations = this._permutate(search);
+    const splits = search.split(' ');
+    // add a space prefix to ensure the string maps at the start of a word
+    // only case this doesn't nicely handle is the years at the start of the name
+    for (let x = 1; x < splits.length; x++) {
+      splits[x] = ' ' + splits[x];
+    }
     return times_lookup.filter(item =>
-      searchPermutations.some(permutation => item.key.indexOf(permutation) > -1)
+      splits.every(split => item.key.indexOf(split) > -1)
     );
   }
-
-  _permutate(search) {
-    const permutations = [];
-    const splits = search.split(' ');
-    for (let x = 0; x < splits.length; x++) {
-      const firstItem = splits.shift();
-      splits.push(firstItem);
-      permutations.push(splits.join(' '));
-    }
-    return permutations;
-  }
 }
-debugger;
-
 
 ReactDOM.render(
   <App />,
